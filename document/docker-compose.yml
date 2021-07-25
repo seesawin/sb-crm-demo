@@ -1,0 +1,40 @@
+version: '3.5'
+
+networks:
+  dev-test:
+    driver: bridge
+
+services:
+  mysql-db:
+    image: mysql:5.7.29
+    container_name: mysql-db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: 'demo'
+      MYSQL_ROOT_PASSWORD: '123456'
+      MYSQL_USER: 'root'
+      MYSQL_ROOT_HOST: '%'
+      TZ: "Asia/Shanghai"
+    volumes:
+      - mysql-db-volumes:/var/lib/mysql
+      - ./mysql-dump:/docker-entrypoint-initdb.d
+    networks:
+      - dev-test
+
+  sb-app:
+    image: demo/sb-crm
+    container_name: sb-app
+    build:
+      context: ..
+      dockerfile: document/Dockerfile
+    ports:
+      - "9100:9100"
+    entrypoint: java -Xmx384M -Xms128M -Duser.timezone=GMT+08 -jar app.jar
+    depends_on:
+      - mysql-db
+    networks:
+      - dev-test
+
+volumes:
+  mysql-db-volumes:
