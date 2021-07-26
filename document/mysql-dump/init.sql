@@ -11,6 +11,7 @@ CREATE TABLE `user_role`
     PRIMARY KEY (`id`),
     UNIQUE (`user_id`, `role_id`)
 ) ENGINE = InnoDB
+  AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci COMMENT ='user role';
 
@@ -59,7 +60,7 @@ CREATE TABLE `client`
     `updated_at` timestamp default now()                 NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 1000001
+  AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci COMMENT ='client';
 
@@ -75,7 +76,7 @@ CREATE TABLE `company`
     `updated_at` timestamp default now()                 NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 1000001
+  AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci COMMENT ='company';
 
@@ -84,6 +85,10 @@ INSERT INTO role(name, created_by, updated_by) VALUES ('super', 'system', 'syste
 INSERT INTO role(name, created_by, updated_by) VALUES ('manager', 'system', 'system');
 INSERT INTO role(name, created_by, updated_by) VALUES ('operator', 'system', 'system');
 
-INSERT INTO demo.user (id, name, password, created_by, created_at, updated_by, updated_at) VALUES (1, 'adm', '$2a$10$y3Fk9YL1fL1dJAybITovr.ilZQnyKMHqzwbRDzQ31GiNFDNPRyREa', 'system', now(), 'system', now());
-INSERT INTO demo.user (id, name, password, created_by, created_at, updated_by, updated_at) VALUES (2, 'lead', '$2a$10$.faDvHFrI4CbHTRtFz6EluIaN4/9aK2dMVv4e8KpTLXHdk7nq92eu', 'system', now(), 'system', now());
-INSERT INTO demo.user (id, name, password, created_by, created_at, updated_by, updated_at) VALUES (3, 'customer', '$2a$10$sMD7XhQFQ4cwjnt8TV1xeuLqD4Z8qY8wbKC68AIhFSV9dytfIUrWm', 'system', now(), 'system', now());
+INSERT INTO demo.user (name, password, created_by, created_at, updated_by, updated_at) VALUES ('super', '$2a$10$oXfT0ztvznNXvJMsX0AcouiTWFavd9mUTz6la6n/j35CQeVm8bft6', 'system', '2021-07-26 02:21:41', 'system', '2021-07-26 02:21:41');
+INSERT INTO demo.user (name, password, created_by, created_at, updated_by, updated_at) VALUES ('manager', '$2a$10$cceUZdkyjgEYntXKqzl3DuiPTUdkOv6FzY69W8vNbcF38DfXY2ANe', 'system', '2021-07-26 02:21:50', 'system', '2021-07-26 02:21:50');
+INSERT INTO demo.user (name, password, created_by, created_at, updated_by, updated_at) VALUES ('operator', '$2a$10$Yql.gShgKvAgwV9hhxdZ2.yTWdwpEMSHjeqGRLmRy4Ijom1s8tMKO', 'system', '2021-07-26 02:21:59', 'system', '2021-07-26 02:21:59');
+
+INSERT INTO demo.user_role (id, user_id, role_id, created_by, created_at, updated_by, updated_at) VALUES (1, 1000001, 1, 'system', '2021-07-26 02:21:41', 'system', '2021-07-26 02:21:41');
+INSERT INTO demo.user_role (id, user_id, role_id, created_by, created_at, updated_by, updated_at) VALUES (2, 1000002, 2, 'system', '2021-07-26 02:21:50', 'system', '2021-07-26 02:21:50');
+INSERT INTO demo.user_role (id, user_id, role_id, created_by, created_at, updated_by, updated_at) VALUES (3, 1000003, 3, 'system', '2021-07-26 02:21:59', 'system', '2021-07-26 02:21:59');

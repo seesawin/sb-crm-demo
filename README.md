@@ -15,18 +15,19 @@
 4. get the platform user's token 
 
    4.1.login platform user
-   ```
-   account/password
-   adm/111111
-   lead/111111
-   customer/111111
-   ```
-   ![img_1.png](img.png)
+   
+   | account | password |
+   | :-----| ----: |
+   | super | 111111 |
+   | manager | 111111 |
+   | operator | 111111 |
+
+   ![img_5.png](img_5.png)
    4.2.copy the token
    ![img_2.png](img_2.png)
    4.3 authorize
    ![img_3.png](img_3.png)
-   ![img_4.png](img_4.png)
+   ![img_6.png](img_6.png)
    
 5. start to add/update/delete the client or company data
    

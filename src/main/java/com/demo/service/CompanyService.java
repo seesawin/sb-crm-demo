@@ -7,6 +7,7 @@ import com.demo.bean.so.company.CompanyDeleteSO;
 import com.demo.bean.so.company.CompanyUpdateSO;
 import com.demo.dao.CompanyDao;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +32,7 @@ public class CompanyService {
      */
     public List<Company> query(CompanyQuery companyQuery) {
         //query
-        List<Company> companies = companyDao.getCompanyByCompanyQuery(companyQuery);
+        List<Company> companies = getCompanyByCompanyQuery(companyQuery);
         //create vo
         return companies.stream().map(it -> {
             Company vo = new Company();
@@ -45,6 +46,7 @@ public class CompanyService {
      *
      * @param companyAddSO
      */
+    @Transactional
     public void add(CompanyAddSO companyAddSO) {
         List<Company> clients = companyAddSO.getClients().stream().map(it -> {
             Company company = new Company();
@@ -58,8 +60,9 @@ public class CompanyService {
     /**
      * update user
      *
-     * @param userUpdateSO
+     * @param companyUpdateSO
      */
+    @Transactional
     public void update(CompanyUpdateSO companyUpdateSO) throws Exception {
         Company company = companyDao.findById(companyUpdateSO.getId()).orElse(null);
         if (Objects.isNull(company)) {
@@ -79,6 +82,21 @@ public class CompanyService {
     @Transactional
     public void delete(CompanyDeleteSO companyDeleteSO) {
         companyDao.deleteAllByIdInBatch(companyDeleteSO.getIds());
+    }
+
+    private List<Company> getCompanyByCompanyQuery(CompanyQuery companyQuery) {
+        return (companyDao.findAll().stream().filter(it -> {
+            if (companyQuery.getId() != null && !it.getId().equals(companyQuery.getId())) {
+                return false;
+            }
+            if (companyQuery.getName() != null && !StringUtils.containsIgnoreCase(it.getName(), companyQuery.getName())) {
+                return false;
+            }
+            if (companyQuery.getAddress() != null && !StringUtils.containsIgnoreCase(it.getAddress(), companyQuery.getAddress())) {
+                return false;
+            }
+            return true;
+        }).collect(Collectors.toList()));
     }
 
 }

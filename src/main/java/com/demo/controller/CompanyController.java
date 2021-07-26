@@ -27,15 +27,15 @@ public class CompanyController {
     @PostMapping("/view")
     @PreAuthorize("hasAnyAuthority('super','manager','operator')")
     @ApiOperation(value = "all roles can access", authorizations = {@Authorization(value = "jwtToken")})
-    public ResponseEntity<?> clientQuery(@RequestBody CompanyQuery clientQuery) {
-        return ResponseEntity.ok(CommonVO.success(companyService.query(clientQuery)));
+    public ResponseEntity<?> clientQuery(@RequestBody CompanyQuery companyQuery) {
+        return ResponseEntity.ok(CommonVO.success(companyService.query(companyQuery)));
     }
 
     @PostMapping("/add")
     @PreAuthorize("hasAnyAuthority('super','operator')")
     @ApiOperation(value = "super, operator can access", authorizations = {@Authorization(value = "jwtToken")})
-    public ResponseEntity<?> add(@Valid @RequestBody CompanyAddSO clientAddSO) {
-        companyService.add(clientAddSO);
+    public ResponseEntity<?> add(@Valid @RequestBody CompanyAddSO companyAddSO) {
+        companyService.add(companyAddSO);
         return ResponseEntity.ok(CommonVO.success());
     }
 
